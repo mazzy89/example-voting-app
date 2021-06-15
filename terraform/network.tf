@@ -11,3 +11,12 @@ resource "digitalocean_database_firewall" "fw" {
     value = digitalocean_kubernetes_cluster.cluster.id
   }
 }
+
+resource "digitalocean_database_firewall" "fw_redis" {
+  cluster_id = digitalocean_database_cluster.redis-example.id
+
+  rule {
+    type  = "k8s"
+    value = digitalocean_kubernetes_cluster.cluster.id
+  }
+}
