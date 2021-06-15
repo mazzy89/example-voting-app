@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, make_response, g
 from redis import Redis
+from prometheus_client import start_http_server, Counter
 import os
 import socket
 import random
@@ -30,11 +31,13 @@ def hello():
     vote = None
 
     if request.method == 'POST':
+        c = Counter('votes', 'Number of votes')
         redis = get_redis()
         vote = request.form['vote']
         app.logger.info('Received vote for %s', vote)
         data = json.dumps({'voter_id': voter_id, 'vote': vote})
         redis.rpush('votes', data)
+        c.inc()
 
     resp = make_response(render_template(
         'index.html',
@@ -49,3 +52,4 @@ def hello():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+    start_http_server(port=8000, addr='0.0.0.0')
