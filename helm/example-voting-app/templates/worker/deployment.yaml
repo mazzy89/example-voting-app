@@ -29,6 +29,11 @@ spec:
             {{- toYaml .Values.worker.securityContext | nindent 12 }}
           image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
+          {{- range $envVar := .Values.worker.envVars -}}
+          env:
+            - name: {{ $envVar.name }}
+              value: {{ $envVar.value }}
+          {{- end }}
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}
       {{- with .Values.worker.nodeSelector }}
