@@ -18,6 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app: {{ template "example-voting-app.fullname" . }}-worker
         {{- include "example-voting-app.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "example-voting-app.serviceAccountName.worker" . }}-worker
@@ -29,10 +30,9 @@ spec:
             {{- toYaml .Values.worker.securityContext | nindent 12 }}
           image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
-          {{- range $envVar := .Values.worker.envVars -}}
+          {{- with .Values.worker.envVars }}
           env:
-            - name: {{ $envVar.name }}
-              value: {{ $envVar.value }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}

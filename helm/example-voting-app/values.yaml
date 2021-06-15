@@ -10,7 +10,7 @@ result:
 
   image:
     repository: mazzy/examplevotingapp_result
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: 0.0.1
 
@@ -85,7 +85,7 @@ vote:
 
   image:
     repository: mazzy/examplevotingapp_vote
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: 0.0.1
 
@@ -160,7 +160,7 @@ worker:
 
   image:
     repository: mazzy/examplevotingapp_worker
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: 0.0.1
 
