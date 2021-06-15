@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "example-voting-app.fullname" . }}-result
+  labels:
+    app: {{ template "example-voting-app.fullname" . }}-result
+    {{- include "example-voting-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "example-voting-app.fullname" . }}-result
+      {{- include "example-voting-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "example-voting-app.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "example-voting-app.serviceAccountName.result" . }}-result
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.result.image.repository }}:{{ .Values.result.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.result.image.pullPolicy }}
+          {{- range $envVar := .Values.result.envVars -}}
+          env:
+            - name: {{ $envVar.name }}
+              value: {{ $envVar.value }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 4000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.result.resources | nindent 12 }}
+      {{- with .Values.result.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.result.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.result.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
