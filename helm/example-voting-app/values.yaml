@@ -9,10 +9,10 @@ result:
   replicaCount: 1
 
   image:
-    repository: dockersamples/examplevotingapp_result
+    repository: mazzy/examplevotingapp_result
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: before
+    tag: 0.0.1
 
   imagePullSecrets: []
   nameOverride: ""
@@ -84,10 +84,10 @@ vote:
   replicaCount: 1
 
   image:
-    repository: nginx
+    repository: mazzy/examplevotingapp_vote
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: 0.0.1
 
   imagePullSecrets: []
   nameOverride: ""
@@ -159,10 +159,10 @@ worker:
   replicaCount: 1
 
   image:
-    repository: nginx
+    repository: mazzy/examplevotingapp_worker
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: 0.0.1
 
   nameOverride: ""
   fullnameOverride: ""
