@@ -1,5 +1,5 @@
 resource "digitalocean_kubernetes_cluster" "cluster" {
-  name = "example-voting-app"
+  name = var.do_project_name
 
   region  = var.do_region
   version = var.kubernetes_version

@@ -21,14 +21,3 @@ resource "helm_release" "kube_prometheus_stack" {
     value = "false"
   }
 }
-
-
-resource "helm_release" "redis" {
-  name = "redis"
-
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "bitnami/redis"
-
-  create_namespace = true
-  namespace        = var.do_project_name
-}
