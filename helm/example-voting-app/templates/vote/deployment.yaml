@@ -20,15 +20,11 @@ spec:
       labels:
         {{- include "example-voting-app.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.vote.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       serviceAccountName: {{ include "example-voting-app.serviceAccountName.vote" . }}-vote
       securityContext:
         {{- toYaml .Values.vote.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: vote
           securityContext:
             {{- toYaml .Values.vote.securityContext | nindent 12 }}
           image: "{{ .Values.vote.image.repository }}:{{ .Values.vote.image.tag | default .Chart.AppVersion }}"
