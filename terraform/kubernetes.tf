@@ -1,8 +1,10 @@
-resource "digitalocean_kubernetes_cluster" "example_voting_app" {
+resource "digitalocean_kubernetes_cluster" "cluster" {
   name = "example-voting-app"
 
-  region  = "fra1"
+  region  = var.do_region
   version = var.kubernetes_version
+
+  vpc_uuid = digitalocean_vpc.network.id
 
   node_pool {
     name       = "worker-pool"
