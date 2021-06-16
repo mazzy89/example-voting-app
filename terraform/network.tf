@@ -13,7 +13,7 @@ resource "digitalocean_database_firewall" "fw" {
 }
 
 resource "digitalocean_database_firewall" "fw_redis" {
-  cluster_id = digitalocean_database_cluster.redis-example.id
+  cluster_id = digitalocean_database_cluster.redis_cluster.id
 
   rule {
     type  = "k8s"

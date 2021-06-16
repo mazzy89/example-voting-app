@@ -1,4 +1,4 @@
-resource "digitalocean_database_cluster" "redis-example" {
+resource "digitalocean_database_cluster" "redis_cluster" {
   name                 = "${var.do_project_name}-redis"
   engine               = "redis"
   version              = "6"
