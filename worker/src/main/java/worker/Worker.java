@@ -72,19 +72,11 @@ class Worker {
     try {
 
       Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://" + System.getenv("PGHOST") + ":" + System.getenv("PGPORT") + "/" + System.getenv("PGDATABASE");
+      String url = "jdbc:postgresql://" + System.getenv("PGHOST") + ":" + System.getenv("PGPORT") + "/" + System.getenv("PGDATABASE") + "?user=" + System.getenv("PGUSER") + "&password=" + System.getenv("PGPASSWORD") + "&sslmode=require";
 
       while (conn == null) {
         try {
-          String username = System.getenv("PGUSERNAME");
-          String password = System.getenv("PGPASSWORD");
-
-          Properties props = new Properties();
-          props.setProperty("user", username);
-          props.setProperty("password", password);
-          props.setProperty("ssl","true");
-
-          conn = DriverManager.getConnection(url, props);
+          conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
           System.err.println(e.toString());
           System.err.println("Waiting for db");
