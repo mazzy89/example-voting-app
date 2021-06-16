@@ -6,7 +6,9 @@ A simple distributed application running across multiple Docker containers.
 Getting started
 ---------------
 
-Download [Terraform](https://www.terraform.io/) and [Helm](https://github.com/helm/helm) v3.
+Download [Terraform](https://www.terraform.io/) and [Helm](https://github.com/helm/helm) version 3.
+
+It is required to have a [DigitalOcean](https://www.digitalocean.com/) account.
 
 Walkthrough
 -----------
@@ -33,7 +35,7 @@ terraform plan
 terraform apply
 ```
 
-The above commands will deploy automatically the entire service components on a Kubernetes cluster on the FRA1 region.
+The above commands will deploy automatically the entire service components on a Kubernetes cluster on the Frankurt (FRA1) region.
 
 Note that it is required to have a DigitalOcean token in order to run Terraform successfully.
 
@@ -47,6 +49,13 @@ Architecture
 * A [.NET Core](/worker/src/Worker), [Java](/worker/src/main) or [.NET Core 2.1](/worker/dotnet) worker which consumes votes and stores them in…
 * A [Postgres](https://hub.docker.com/_/postgres/) database cluster managed by DigitalOcean.
 * A [Node.js](/result) or [ASP.NET Core SignalR](/result/dotnet) webapp which shows the results of the voting in real time.
+
+Observability
+-------------
+
+The cloud provider provides out-of-the-box monitoring UIs to observe how the droplets (VMs) perform. 
+
+Prometheus stack is deployed in the Kubernetes cluster [node-exporter](https://github.com/prometheus/node_exporter) collect metrics on the cluster nodes.
 
 Notes
 -----
