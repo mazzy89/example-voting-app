@@ -84,3 +84,14 @@ Create the name of the service account to use
 {{- default "default" .Values.worker.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "example-voting-app.serviceAccountName.redis" -}}
+{{- if .Values.redis.serviceAccount.create }}
+{{- default (include "example-voting-app.fullname" .) .Values.redis.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.redis.serviceAccount.name }}
+{{- end }}
+{{- end }}
