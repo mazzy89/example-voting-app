@@ -30,10 +30,13 @@ spec:
             {{- toYaml .Values.vote.securityContext | nindent 12 }}
           image: "{{ .Values.vote.image.repository }}:{{ .Values.vote.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.vote.image.pullPolicy }}
-          {{- with .Values.vote.envVars }}
+          {{ if .Values.vote.envVars }}
           env:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{ range $item := .Values.vote.envVars -}}
+            - name: {{ $item.name }}
+              value: {{ $item.value | quote }}
+            {{ end }}
+          {{ end -}}
           ports:
             - name: http
               containerPort: 80

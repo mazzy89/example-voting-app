@@ -60,21 +60,7 @@ result:
     #    hosts:
     #      - chart-example.local
 
-  envVars:
-    - name: PORT
-      value: "4000"
-    - name: PGHOST
-      value: private-example-voting-app-pg-do-user-8523815-0.b.db.ondigitalocean.com
-    - name: PGUSER
-      value: example-voting-app
-    - name: PGDATABASE
-      value: example-voting-app
-    - name: PGPASSWORD
-      value: io47pk4oob4kkif8
-    - name: PGPORT
-      value: "25060"
-    - name: PGSSLMODE
-      value: require
+  envVars: []
     
   resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
@@ -205,19 +191,7 @@ worker:
     # runAsNonRoot: true
     # runAsUser: 1000
   
-  envVars:
-    - name: REDIS_HOST
-      value: example-voting-app-redis.default.svc.cluster.local
-    - name: PGHOST
-      value: private-example-voting-app-pg-do-user-8523815-0.b.db.ondigitalocean.com
-    - name: PGUSER
-      value: example-voting-app
-    - name: PGDATABASE
-      value: example-voting-app
-    - name: PGPASSWORD
-      value: io47pk4oob4kkif8
-    - name: PGPORT
-      value: "25060"
+  envVars: []
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious

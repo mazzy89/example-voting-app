@@ -30,10 +30,13 @@ spec:
             {{- toYaml .Values.worker.securityContext | nindent 12 }}
           image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
-          {{- with .Values.worker.envVars }}
+          {{ if .Values.worker.envVars }}
           env:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{ range $item := .Values.worker.envVars -}}
+            - name: {{ $item.name }}
+              value: {{ $item.value | quote }}
+            {{ end }}
+          {{ end -}}
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}
       {{- with .Values.worker.nodeSelector }}
