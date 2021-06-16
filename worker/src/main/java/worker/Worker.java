@@ -48,13 +48,8 @@ class Worker {
 
   static Jedis connectToRedis() {
     String host = System.getenv("REDIS_HOST");
-    int port = Integer.parseInt(System.getenv("REDIS_PORT"));
-    String username = System.getenv("REDIS_USERNAME");
-    String password = System.getenv("REDIS_PASSWORD");
 
-    JedisPool connPool = new JedisPool(host, port, username, password);
-
-    Jedis conn = connPool.getResource();
+    Jedis conn = new Jedis(host);
 
     while (true) {
       try {
