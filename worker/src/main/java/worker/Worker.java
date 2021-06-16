@@ -8,9 +8,7 @@ import org.json.JSONObject;
 class Worker {
   public static void main(String[] args) {
     try {
-      String redisUrl = System.getenv("REDIS_URL");
-
-      Jedis redis = connectToRedis(redisUrl);
+      Jedis redis = connectToRedis();
       Connection dbConn = connectToDB();
 
       System.err.println("Watching vote queue");
@@ -47,8 +45,15 @@ class Worker {
     }
   }
 
-  static Jedis connectToRedis(String host) {
-    Jedis conn = new Jedis(host);
+  static Jedis connectToRedis() {
+    String host = System.getenv("REDIS_HOST");
+    int port = Integer.parseInt(System.getenv("REDIS_PORT"));
+    String username = System.getenv("REDIS_USERNAME");
+    String password = System.getenv("REDIS_PASSWORD");
+
+    Jedis connPool = new JedisPool(host, port, username, password);
+
+    Jedis conn = connPool.getResource();
 
     while (true) {
       try {
