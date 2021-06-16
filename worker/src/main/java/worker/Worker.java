@@ -81,6 +81,7 @@ class Worker {
 
           conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
+          System.err.println(e.toString());
           System.err.println("Waiting for db");
           sleep(1000);
         }
