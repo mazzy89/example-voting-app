@@ -1,6 +1,7 @@
 package worker;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import java.sql.*;
 import org.json.JSONObject;
@@ -51,7 +52,7 @@ class Worker {
     String username = System.getenv("REDIS_USERNAME");
     String password = System.getenv("REDIS_PASSWORD");
 
-    Jedis connPool = new JedisPool(host, port, username, password);
+    JedisPool connPool = new JedisPool(host, port, username, password);
 
     Jedis conn = connPool.getResource();
 
