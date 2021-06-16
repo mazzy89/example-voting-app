@@ -12,6 +12,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: 8000
+      targetPort: prometheus
+      protocol: TCP
+      name: prometheus
   selector:
     app: {{ template "example-voting-app.fullname" . }}-vote
     {{- include "example-voting-app.selectorLabels" . | nindent 4 }}

@@ -38,6 +38,9 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+            - name: prometheus
+              containerPort: 8000
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /

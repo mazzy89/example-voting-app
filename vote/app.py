@@ -54,5 +54,5 @@ def hello():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
     start_http_server(port=8000, addr='0.0.0.0')
+    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)

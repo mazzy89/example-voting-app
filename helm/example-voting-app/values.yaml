@@ -60,8 +60,22 @@ result:
     #    hosts:
     #      - chart-example.local
 
-  envVars: []
-
+  envVars:
+    - name: PORT
+      value: "4000"
+    - name: PGHOST
+      value: private-example-voting-app-pg-do-user-8523815-0.b.db.ondigitalocean.com
+    - name: PGUSER
+      value: example-voting-app
+    - name: PGDATABASE
+      value: example-voting-app
+    - name: PGPASSWORD
+      value: io47pk4oob4kkif8
+    - name: PGPORT
+      value: "25060"
+    - name: PGSSLMODE
+      value: require
+    
   resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
@@ -115,7 +129,9 @@ vote:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-  envVars: []
+  envVars:
+    - name: REDIS_HOST
+      value: example-voting-app-redis.default.svc.cluster.local
 
   service:
     type: ClusterIP
@@ -189,7 +205,19 @@ worker:
     # runAsNonRoot: true
     # runAsUser: 1000
   
-  envVars: []
+  envVars:
+    - name: REDIS_HOST
+      value: example-voting-app-redis.default.svc.cluster.local
+    - name: PGHOST
+      value: private-example-voting-app-pg-do-user-8523815-0.b.db.ondigitalocean.com
+    - name: PGUSER
+      value: example-voting-app
+    - name: PGDATABASE
+      value: example-voting-app
+    - name: PGPASSWORD
+      value: io47pk4oob4kkif8
+    - name: PGPORT
+      value: "25060"
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
