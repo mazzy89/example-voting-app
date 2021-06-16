@@ -17,6 +17,8 @@ gunicorn_error_logger = logging.getLogger('gunicorn.error')
 app.logger.handlers.extend(gunicorn_error_logger.handlers)
 app.logger.setLevel(logging.INFO)
 
+start_http_server(port=8000, addr='0.0.0.0')
+
 def get_redis():
     if not hasattr(g, 'redis'):
         host = os.environ['REDIS_HOST']
