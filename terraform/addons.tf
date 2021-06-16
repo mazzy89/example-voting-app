@@ -5,6 +5,30 @@ resource "helm_release" "traefik" {
   chart      = "traefik"
 
   namespace = "kube-system"
+
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-protocol"
+    value = "http"
+    type  = "string"
+  }
+
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-certificate-id"
+    value = digitalocean_certificate.cert.uuid
+    type  = "string"
+  }
+
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-tls-ports"
+    value = "443"
+    type  = "string"
+  }
+
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-redirect-http-to-https"
+    value = "true"
+    type  = "string"
+  }
 }
 
 resource "helm_release" "kube_prometheus_stack" {
