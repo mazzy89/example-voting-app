@@ -21,7 +21,7 @@ def get_redis():
     if not hasattr(g, 'redis'):
         host = os.environ['REDIS_HOST']
 
-        g.redis = Redis(host=redis_host, db=0, socket_timeout=5)
+        g.redis = Redis(host=host, db=0, socket_timeout=5)
 
     return g.redis
 
