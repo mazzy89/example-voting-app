@@ -23,16 +23,16 @@ variable "nodes_count" {
 }
 
 variable "cloudflare_api_token" {
-  type     = string
+  type      = string
   sensitive = true
 }
 
 variable "cloudflare_domain" {
-  type     = string
+  type      = string
   sensitive = true
 }
 
 variable "cloudflare_zone_id" {
-  type     = string
+  type      = string
   sensitive = true
 }

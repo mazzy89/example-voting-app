@@ -7,6 +7,17 @@ resource "helm_release" "traefik" {
   namespace = "kube-system"
 
   set {
+    name  = "logs.general.level"
+    value = "DEBUG"
+  }
+
+
+  set {
+    name  = "providers.kubernetesIngress.publishedService.enabled"
+    value = "true"
+  }
+
+  set {
     name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-protocol"
     value = "http"
     type  = "string"
@@ -21,12 +32,6 @@ resource "helm_release" "traefik" {
   set {
     name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-tls-ports"
     value = "443"
-    type  = "string"
-  }
-
-  set {
-    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-redirect-http-to-https"
-    value = "true"
     type  = "string"
   }
 }
@@ -197,7 +202,7 @@ resource "helm_release" "app" {
   }
 
   depends_on = [
-    "helm_release.traefik"
+    helm_release.traefik
   ]
 }
 
@@ -216,7 +221,7 @@ resource "helm_release" "external_dns" {
 
   set {
     name  = "cloudflare.apiToken"
-    value = var.cloudflarte_api_token
+    value = var.cloudflare_api_token
   }
 
   set {
@@ -236,6 +241,6 @@ resource "helm_release" "external_dns" {
   }
 
   depends_on = [
-    "helm_release.traefik"
+    helm_release.traefik
   ]
 }
