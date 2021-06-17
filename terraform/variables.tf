@@ -21,3 +21,18 @@ variable "nodes_count" {
   type    = number
   default = 3
 }
+
+variable "cloudflare_api_token" {
+  type     = string
+  sensitive = true
+}
+
+variable "cloudflare_domain" {
+  type     = string
+  sensitive = true
+}
+
+variable "cloudflare_zone_id" {
+  type     = string
+  sensitive = true
+}

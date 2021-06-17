@@ -195,5 +195,47 @@ resource "helm_release" "app" {
     name  = "vote.envVars[0].value"
     value = "${var.do_project_name}-redis.default.svc.cluster.local"
   }
+
+  depends_on = [
+    "helm_release.traefik"
+  ]
 }
 
+resource "helm_release" "external_dns" {
+  name = "external-dns"
+
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "external-dns"
+
+  namespace = "kube-system"
+
+  set {
+    name  = "provider"
+    value = "cloudflare"
+  }
+
+  set {
+    name  = "cloudflare.apiToken"
+    value = var.cloudflarte_api_token
+  }
+
+  set {
+    name  = "cloudflare.proxied"
+    value = "true"
+  }
+
+  set {
+    name  = "zoneNameFilters[0]"
+    value = var.cloudflare_domain
+  }
+
+
+  set {
+    name  = "zoneIdFilters[0]"
+    value = var.cloudflare_zone_id
+  }
+
+  depends_on = [
+    "helm_release.traefik"
+  ]
+}

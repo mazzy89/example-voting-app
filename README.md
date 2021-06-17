@@ -8,12 +8,12 @@ Getting started
 
 Download [Terraform](https://www.terraform.io/) and [Helm](https://github.com/helm/helm) version 3.
 
-It is required to have a [DigitalOcean](https://www.digitalocean.com/) account.
+It is required to have a [DigitalOcean](https://www.digitalocean.com/) account and a CloudFlare account with an existing managed domain.
 
 Walkthrough
 -----------
 
-In regards of the assigment, DigitalOcean has been chosen as cloud provider for its simplicity and fast deployment. It will provide primitives for compute, network and storage required to run the service components.
+In regards of the assigment, DigitalOcean has been chosen as cloud provider for its simplicity and fast deployment. It will provide primitives for compute, network and storage required to run all the service components and meet the specified requirements.
 
 Components
 ----------
@@ -25,11 +25,19 @@ Components
 Install
 -------
 
+Create under `terraform` a file named `terraform.tfvars` that looks like:
+
+```tf
+do_token=
+cloudflare_api_token=
+cloudflare_domain=
+cloudflare_zone_id=
+```
+
 Run:
 
 ```sh
 cd terraform
-export TF_VAR_do_token=...
 terraform init
 terraform plan
 terraform apply
@@ -37,7 +45,7 @@ terraform apply
 
 The above commands will deploy automatically the entire service components on a Kubernetes cluster on the Frankurt (FRA1) region.
 
-Note that it is required to have a DigitalOcean token in order to run Terraform successfully.
+Note that it is required to have a DigitalOcean token in order to apply Terraform successfully and a CloudFlare token to create automatically DNS entries of the `Ingress` objects.
 
 Architecture
 -----
@@ -66,3 +74,5 @@ Notes
 
 Caveats
 -------
+
+* SSL certificates are created out of the band using CloudFlare account. They have 1year validity and approaching the expiration they have to be renewed. This step could have been avoided by migrating the domain to DigitalOcean and using Let's Encrypt which provide SSL certificates handling the renewal automatically.
