@@ -1,36 +1,30 @@
-resource "helm_release" "traefik" {
-  name = "traefik-ingress-controller"
+resource "helm_release" "ingress_nginx" {
+  name = "ingress-nginx"
 
-  repository = "https://helm.traefik.io/traefik"
-  chart      = "traefik"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "nginx"
 
   namespace = "kube-system"
 
   set {
-    name  = "logs.general.level"
-    value = "DEBUG"
-  }
-
-
-  set {
-    name  = "providers.kubernetesIngress.publishedService.enabled"
+    name  = "controller.publishService.enabled"
     value = "true"
   }
 
   set {
-    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-protocol"
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-protocol"
     value = "http"
     type  = "string"
   }
 
   set {
-    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-certificate-id"
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-certificate-id"
     value = digitalocean_certificate.cert.uuid
     type  = "string"
   }
 
   set {
-    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-tls-ports"
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-tls-ports"
     value = "443"
     type  = "string"
   }
@@ -202,7 +196,7 @@ resource "helm_release" "app" {
   }
 
   depends_on = [
-    helm_release.traefik
+    ingress_nginx
   ]
 }
 
@@ -241,6 +235,6 @@ resource "helm_release" "external_dns" {
   }
 
   depends_on = [
-    helm_release.traefik
+    ingress_nginx
   ]
 }
