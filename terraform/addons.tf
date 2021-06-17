@@ -196,7 +196,7 @@ resource "helm_release" "app" {
   }
 
   depends_on = [
-    ingress_nginx
+    helm.ingress_nginx
   ]
 }
 
@@ -235,6 +235,6 @@ resource "helm_release" "external_dns" {
   }
 
   depends_on = [
-    ingress_nginx
+    helm.ingress_nginx
   ]
 }
