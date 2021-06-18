@@ -10,31 +10,6 @@ resource "helm_release" "ingress_nginx" {
     name  = "controller.publishService.enabled"
     value = "true"
   }
-
-
-  set {
-    name  = "controller.addHeaders.X-Forwarded-For"
-    value = "https"
-  }
-
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-protocol"
-    value = "http"
-    type  = "string"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-certificate-id"
-    value = digitalocean_certificate.cert.uuid
-    type  = "string"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/do-loadbalancer-tls-ports"
-    value = "443"
-    type  = "string"
-  }
 }
 
 resource "helm_release" "kube_prometheus_stack" {

@@ -65,14 +65,16 @@ The cloud provider provides out-of-the-box monitoring UIs to observe how the dro
 
 Prometheus stack is deployed in the Kubernetes cluster [node-exporter](https://github.com/prometheus/node_exporter) collect metrics on the cluster nodes.
 
+SSL/TLS
+-------
+
+SSL connection is handled in the CloudFlare account using the [Full mode](https://support.cloudflare.com/hc/en-us/articles/200170416-End-to-end-HTTPS-with-Cloudflare-Part-3-SSL-options#:~:text=origin%20web%20server.-,Full,at%20the%20origin%20web%20server.). Without any requirements provided for the take home assisgment in handling SSL certicates, this seems the faster and better way to handle in such context SSL certificates. The provider manages SSL certificates lifecycle so operations friction is reduced at minimium.
+
 Notes
 -----
 
 * The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 * DigitalOcean provides automatic daily backups for the managed PostgreSQL out of the box.
-* SSL Certiicates are created and managed by a CloudFlare account.
 
 Caveats
 -------
-
-* SSL certificates are created out of the band using CloudFlare account. They have 1year validity and approaching the expiration they have to be renewed. This step could have been avoided by migrating the domain to DigitalOcean and using Let's Encrypt which provide SSL certificates handling the renewal automatically.
