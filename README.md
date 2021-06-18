@@ -24,7 +24,7 @@ Features
 
 * Isolating internal from external components: Networking promitives provided by the cloud provider allows to segrate internal network traffic from the external traffic.
 
-* Handling HTTPS termination: SSL managed via CloudFlare. See [SSL/TLS](#SSL/TLS)
+* Handling HTTPS termination: SSL managed via CloudFlare. See [SSL/TLS](README.md#SSL/TLS)
 
 * A schedule for backups and a disaster recovery plan: the cloud provider manages backup automatically.
 
