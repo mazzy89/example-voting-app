@@ -3,10 +3,10 @@ Example Voting App
 
 A simple distributed application running across multiple Docker containers.
 
-Getting started
+Requirements
 ---------------
 
-Download [Terraform](https://www.terraform.io/) and [Helm](https://github.com/helm/helm) version 3.
+Download [Terraform](https://www.terraform.io/) 1.0.0 and [Helm](https://github.com/helm/helm) version 3.
 
 It is required to have a [DigitalOcean](https://www.digitalocean.com/) account and a CloudFlare account with an existing managed domain.
 
