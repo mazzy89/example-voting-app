@@ -89,6 +89,14 @@ Notes
 * The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 * DigitalOcean provides automatic daily backups for the managed PostgreSQL out of the box.
 
+Shortcomings
+-----------
+
+* CI/CD: development team can put effort on building CI/CD solution to automate the deployment process.
+* Secrets handling: secrets handling should be handled correctly.
+* Terraform state centralized: Terraform state must be stored in a central and safe location such as Vault, AWS S3, etc...
+* Tests: the project does not provide tests (unit, integration).
+
 Credits
 -------
 
