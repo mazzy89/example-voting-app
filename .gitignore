@@ -8,3 +8,5 @@ node_modules/
 .terraform
 terraform/data/ssl/*
 terraform.tfvars
+.terraform.lock.hcl
+terraform.tfstate*
