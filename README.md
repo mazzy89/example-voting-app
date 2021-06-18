@@ -15,6 +15,19 @@ Walkthrough
 
 In regards of the assigment, DigitalOcean has been chosen as cloud provider for its simplicity and fast deployment. It will provide primitives for compute, network and storage required to run all the service components and meet the specified requirements.
 
+Features
+--------
+
+* A way to update all components with zero-downtime: Kubernetes rollout strategy allows to deploy workloads without causing any downtime. The engineer does not need to reinvent complex and hard deployment strategies.
+
+* A way to easily scale the API and UI instances horizontally: thanks to Kubernetes is possible to scale up workloads horizontaly.
+
+* Isolating internal from external components: Networking promitives provided by the cloud provider allows to segrate internal network traffic from the external traffic.
+
+* Handling HTTPS termination: SSL managed via CloudFlare. See [SSL/TLS](#SSL/TLS)
+
+* A schedule for backups and a disaster recovery plan: the cloud provider manages backup automatically.
+
 Components
 ----------
 
@@ -76,5 +89,7 @@ Notes
 * The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
 * DigitalOcean provides automatic daily backups for the managed PostgreSQL out of the box.
 
-Caveats
+Credits
 -------
+
+The workloads used in the following projects belong to the docker samples collection and they can can be found [here](https://github.com/dockersamples/example-voting-app).
